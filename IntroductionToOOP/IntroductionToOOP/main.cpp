@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+//Operators overloading
+
 class Point
 {
 	double x;
@@ -55,12 +57,53 @@ public:
 		cout << "Destructor:\t\t" << this << endl;
 	}
 
+	//			Operators:
+	Point& operator=(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+
+	double operator+(const Point& other)
+	{
+		double sum = this->x + other.y;
+		return sum;
+	}
+
 	//			Methods:
 	void print()
 	{
 		cout << x << "\t" << y << endl;
 	}
+
+	double distance(const Point& other) const
+	{
+		double x_distance = this->x - other.x;
+		double y_distance = this->y - other.y;
+		double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
+		return distance;
+	}
+
+	double add(const Point& other) const
+	{
+		return this->x + other.y;
+	}
 };
+
+double distance(const Point& A, const Point& B)
+{
+	double x_distance = A.get_x() - B.get_x();
+	double y_distance = A.get_y() - B.get_y();
+	//B.set_x(666);
+	double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
+	return distance;
+}
+
+//#define HOME_WORK
+//#define CONSTRUCTORS_CHECK
+#define COPY_ASSIGNMENT
 
 void main()
 {
@@ -82,21 +125,57 @@ void main()
 	//cout << &(*pA).x << endl;
 	//cout << &(*pA).y << endl;
 
+#ifdef HOME_WORK
 	Point A(2, 3);
 	/*cout << A.get_x() << "\t" << A.get_y() << endl;
 	A.set_x(2);
 	A.set_y(3);*/
 	cout << A.get_x() << "\t" << A.get_y() << endl;
 
-	Point B;
+	Point B(4, 5);
 	//cout << B.get_x() << "\t" << B.get_y() << endl;
 	B.print();
 
-	Point C = 5;
+	//cout << A.distance(B) << endl;
+	cout << distance(A, B) << endl;
+#endif // HOME_WORK
+
+	/*cout << "\n================ Operators: ===================\n";
+	int a = 2;
+	int b = 3;
+	cout << a + b << endl;
+	cout << A.add(B) << endl;
+	cout << A + B << endl;
+	cout << "\n===============================================\n";*/
+
+	/*A.operator+(B);
+	или
+
+	operator+(A, B);
+	A + B;*/
+
+	/*Point C = 5;
 	C.print();
 
 	Point D = C;
-	D.print();
+	D.print();*/
+
+#ifdef CONSTRUCTORS_CHECK	
+	Point A;	//Default constructor
+	Point B(2, 3);
+	Point C = B;//Copy constroctor
+	Point E;	//Default constructor
+	E = C;		//Copy assignment
+#endif //CONSTRUCTORS_CHECK
+
+#ifdef COPY_ASSIGNMENT
+	int a, b, c;
+	a = b = c = 0;
+
+	Point A, B, C;
+	A = B = C = Point(2, 3);
+#endif
+
 }
 
 
@@ -109,4 +188,25 @@ void main()
 
 	Class(const Class& other);
 	
+*/
+
+/*
+	ѕравила перегрузки операторов:
+	1. ѕерегрузить можно только существующие операторы.
+		+ перегружаетс€;
+		++ перегружаетс€;
+		* перегружаетс€;
+		** Ќ≈ перегружаетс€;
+	2. Ќе все существующие операторы можно перегрузить.
+		Ќе перегружаютс€:
+		?: - тернарный оператор;
+		:: - оператор разрешени€ видимости; std::cout...
+		. - point operator;
+		.*
+		#
+		##
+
+
+
+		---------------------
 */
