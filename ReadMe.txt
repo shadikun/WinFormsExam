@@ -1,6 +1,9 @@
-https://github.com/okovtun/PS_VS_PU_35
+﻿https://github.com/okovtun/PS_VS_PU_35
 
 TODO:
+Проверчный код в блоке RANGE_BASED_FOR должен заработать.
+
+DONE:
 1. Для класса ForwardList перегрузить оператор '+', выполняющий конкатенацию списков;
 2. В ForwardList добавить CopyConstructor, CopyAssignment, MoveConstructor и MoveAssignment;
 3. Написать проверочный код для всех этих методов.

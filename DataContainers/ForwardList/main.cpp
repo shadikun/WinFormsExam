@@ -250,9 +250,6 @@ ForwardList operator+(const ForwardList& left, const ForwardList& right)
 	return cat;
 }
 
-//#define BASE_CHECK
-//#define OPERATORS_AND_CONSTRUCTORS_CHECK
-
 void print(int arr[])
 {
 	std::cout << sizeof(arr) << std::endl;
@@ -269,6 +266,10 @@ void print(int arr[])
 	}
 	std::cout << std::endl;*/
 }
+
+//#define BASE_CHECK
+//#define OPERATORS_AND_CONSTRUCTORS_CHECK
+#define RANGE_BASED_FOR
 
 void main()
 {
@@ -351,6 +352,14 @@ void main()
 
 	print(arr);*/
 
+#ifdef RANGE_BASED_FOR
 	ForwardList list = { 3, 5, 8, 13, 21 };
-	list.print();
+	//list.print();
+	for (int i : list)
+	{
+		std::cout << i << std::endl;
+	}
+	std::cout << std::endl;
+#endif // RANGE_BASED_FOR
+
 }
