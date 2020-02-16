@@ -34,64 +34,10 @@ class ForwardList
 	Element* Head;
 	int size;
 public:
-
-	class Iterator
-	{
-		Element* Temp;
-	public:
-		Iterator(Element* Temp)
-		{
-			this->Temp = Temp;
-			std::cout << "ItConstructor:\t" << this << std::endl;
-		}
-		/*Iterator(const Iterator& other)
-		{
-			this->Temp = other.Temp;
-			std::cout << "ItConstructor:\t" << this << std::endl;
-		}*/
-		~Iterator()
-		{
-			std::cout << "ItDestructor:\t" << this << std::endl;
-		}
-
-		const int& operator*() const
-		{
-			return Temp->Data;
-		}
-		int& operator*()
-		{
-			return Temp->Data;
-		}
-
-		Iterator& operator++()
-		{
-			Temp = Temp->pNext;
-			return *this;
-		}
-
-		bool operator==(const Iterator& other) const
-		{
-			return this->Temp == other.Temp;
-		}
-		bool operator!=(const Iterator& other) const
-		{
-			return this->Temp != other.Temp;
-		}
-	};
-	/*const Element* getHead()const
+	const Element* getHead()const
 	{
 		return this->Head;
-	}*/
-
-	const Iterator& begin()const
-	{
-		return Head;
 	}
-	const Iterator& end()const
-	{
-		return nullptr;
-	}
-
 	int get_size()const
 	{
 		return size;
@@ -279,17 +225,10 @@ public:
 		//	Temp = Temp->pNext;	//Переход на следующий элемент.
 		//}
 
-		/*for (Element* Temp = Head; Temp; Temp=Temp->pNext)
+		for (Element* Temp = Head; Temp; Temp++)
 		{
 			std::cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << std::endl;
-		}*/
-		for (Iterator it = Head; 
-			it != nullptr; 
-			++it)
-		{
-			std::cout << *it << "\t";
 		}
-		std::cout << std::endl;
 
 		std::cout << "List size:\t" << size << std::endl;
 		std::cout << "\n-------------------------------------\n";
@@ -311,9 +250,6 @@ ForwardList operator+(const ForwardList& left, const ForwardList& right)
 	return cat;
 }
 
-//#define BASE_CHECK
-//#define OPERATORS_AND_CONSTRUCTORS_CHECK
-
 void print(int arr[])
 {
 	std::cout << sizeof(arr) << std::endl;
@@ -330,6 +266,10 @@ void print(int arr[])
 	}
 	std::cout << std::endl;*/
 }
+
+//#define BASE_CHECK
+//#define OPERATORS_AND_CONSTRUCTORS_CHECK
+#define RANGE_BASED_FOR
 
 void main()
 {
@@ -412,11 +352,14 @@ void main()
 
 	print(arr);*/
 
+#ifdef RANGE_BASED_FOR
 	ForwardList list = { 3, 5, 8, 13, 21 };
 	//list.print();
 	for (int i : list)
 	{
-		std::cout << i << "\t";
+		std::cout << i << std::endl;
 	}
 	std::cout << std::endl;
+#endif // RANGE_BASED_FOR
+
 }
