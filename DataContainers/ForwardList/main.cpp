@@ -42,7 +42,10 @@ public:
 		Iterator(Element* Temp)
 		{
 			this->Temp = Temp;
+#ifdef DEBUG_IT
 			std::cout << "ItConstructor:\t" << this << std::endl;
+#endif // DEBUG_IT
+
 		}
 		/*Iterator(const Iterator& other)
 		{
@@ -51,7 +54,10 @@ public:
 		}*/
 		~Iterator()
 		{
+#ifdef DEBUG_IT
 			std::cout << "ItDestructor:\t" << this << std::endl;
+#endif // DEBUG_IT
+
 		}
 
 		const int& operator*() const
@@ -69,6 +75,13 @@ public:
 			return *this;
 		}
 
+		Iterator operator++(int)
+		{
+			Iterator old = *this;
+			if(Temp)Temp = Temp->pNext;
+			return old;
+		}
+
 		bool operator==(const Iterator& other) const
 		{
 			return this->Temp == other.Temp;
@@ -83,12 +96,14 @@ public:
 		return this->Head;
 	}*/
 
-	const Iterator& begin()const
+	const Iterator begin()const
 	{
+		//¬озвращает итератор на начало контейнера
 		return Head;
 	}
-	const Iterator& end()const
+	const Iterator end()const
 	{
+		//¬озвращает итератор на конец контейнера
 		return nullptr;
 	}
 
@@ -414,6 +429,11 @@ void main()
 
 	ForwardList list = { 3, 5, 8, 13, 21 };
 	//list.print();
+	for (ForwardList::Iterator it = list.begin(); it != list.end(); it++)
+	{
+		std::cout << *it << "\t";
+	}
+	std::cout << std::endl;
 	for (int i : list)
 	{
 		std::cout << i << "\t";
