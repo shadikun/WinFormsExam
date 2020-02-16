@@ -34,10 +34,64 @@ class ForwardList
 	Element* Head;
 	int size;
 public:
-	const Element* getHead()const
+
+	class Iterator
+	{
+		Element* Temp;
+	public:
+		Iterator(Element* Temp)
+		{
+			this->Temp = Temp;
+			std::cout << "ItConstructor:\t" << this << std::endl;
+		}
+		/*Iterator(const Iterator& other)
+		{
+			this->Temp = other.Temp;
+			std::cout << "ItConstructor:\t" << this << std::endl;
+		}*/
+		~Iterator()
+		{
+			std::cout << "ItDestructor:\t" << this << std::endl;
+		}
+
+		const int& operator*() const
+		{
+			return Temp->Data;
+		}
+		int& operator*()
+		{
+			return Temp->Data;
+		}
+
+		Iterator& operator++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+
+		bool operator==(const Iterator& other) const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const Iterator& other) const
+		{
+			return this->Temp != other.Temp;
+		}
+	};
+	/*const Element* getHead()const
 	{
 		return this->Head;
+	}*/
+
+	const Iterator& begin()const
+	{
+		return Head;
 	}
+	const Iterator& end()const
+	{
+		return nullptr;
+	}
+
 	int get_size()const
 	{
 		return size;
@@ -225,10 +279,17 @@ public:
 		//	Temp = Temp->pNext;	//Переход на следующий элемент.
 		//}
 
-		for (Element* Temp = Head; Temp; Temp++)
+		/*for (Element* Temp = Head; Temp; Temp=Temp->pNext)
 		{
 			std::cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << std::endl;
+		}*/
+		for (Iterator it = Head; 
+			it != nullptr; 
+			++it)
+		{
+			std::cout << *it << "\t";
 		}
+		std::cout << std::endl;
 
 		std::cout << "List size:\t" << size << std::endl;
 		std::cout << "\n-------------------------------------\n";
@@ -352,5 +413,10 @@ void main()
 	print(arr);*/
 
 	ForwardList list = { 3, 5, 8, 13, 21 };
-	list.print();
+	//list.print();
+	for (int i : list)
+	{
+		std::cout << i << "\t";
+	}
+	std::cout << std::endl;
 }
