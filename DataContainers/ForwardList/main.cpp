@@ -21,12 +21,18 @@ class ForwardList
 			this->Data = Data;
 			this->pNext = pNext;
 			count++;
+#ifdef DEBUG
 			std::cout << "EConstructor:\t" << this << std::endl;
+#endif // DEBUG
+
 		}
 		~Element()
 		{
 			count--;
+#ifdef DEBUG
 			std::cout << "EDestructor:\t" << this << std::endl;
+#endif // DEBUG
+
 		}
 		friend class ForwardList;
 	};
@@ -345,7 +351,9 @@ void print(int arr[])
 
 //#define BASE_CHECK
 //#define OPERATORS_AND_CONSTRUCTORS_CHECK
-#define RANGE_BASED_FOR
+//#define RANGE_BASED_FOR
+//#define PREFORMANCE_ARR
+#define PREFORMANCE_LIST
 
 void main()
 {
@@ -436,4 +444,53 @@ void main()
 		std::cout << i << "\t";
 	}
 	std::cout << std::endl;
+#endif
+
+#ifdef PREFORMANCE_ARR
+	//int n;
+	std::cout << "Input size: "; std::cin >> n;
+	int* arr = new int[n] {};
+	std::cout << "Memory allocated." << std::endl;
+	std::cout << "Loading data....." << std::endl;
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = rand();
+	}
+	std::cout << "Data loaded." << std::endl;
+	std::cout << "-----------------" << std::endl;
+	for (int i = 0; i < n; i++)
+	{
+		//std::cout << arr[i] << "\t";
+	}
+	std::cout << std::endl;
+	std::cout << "Data usage......" << std::endl;
+	std::cout << "-----------------" << std::endl;
+	std::cout << "Releasing memory...." << std::endl;
+	delete[] arr;
+	std::cout << "Memory released." << std::endl;
+#endif
+
+#ifdef PREFORMANCE_LIST
+	//int n;
+	std::cout << "Input size: "; std::cin >> n;
+	ForwardList list(n);
+	std::cout << "Memory allocated." << std::endl;
+	std::cout << "Loading data....." << std::endl;
+	for (int i = 0; i < n; i++)
+	{
+		list[i] = rand();
+	}
+	std::cout << "Data loaded." << std::endl;
+	std::cout << "-----------------" << std::endl;
+	for (int i = 0; i < n; i++)
+	{
+		//std::cout << arr[i] << "\t";
+	}
+	std::cout << std::endl;
+	std::cout << "Data usage......" << std::endl;
+	std::cout << "-----------------" << std::endl;
+	std::cout << "Releasing memory...." << std::endl;
+	list.~ForwardList();
+	std::cout << "Memory released." << std::endl;
+#endif
 }
